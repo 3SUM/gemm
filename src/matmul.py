@@ -1,15 +1,10 @@
 import numpy as np
 
-N = 4
+N = 1024
 
 A = np.random.rand(N, N).astype(np.float32)
 B = np.random.rand(N, N).astype(np.float32)
-
-C = np.matmul(A, B)
-
-print(A)
-print(B)
-print(C)
+C = np.dot(A, B)
 
 with open("data.bin", "wb") as f:
     f.write(A.data)
