@@ -13,8 +13,8 @@ float C[N][N];
 void print_matrix(float m[][N]) {
     std::cout << std::fixed << std::showpoint << std::setprecision(5);
 
-    for(int i = 0; i < N; i++) {
-        for(int j = 0; j < N; j++) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
             std::cout << m[i][j] << " ";
         }
         std::cout << std::endl;
@@ -23,23 +23,22 @@ void print_matrix(float m[][N]) {
 }
 
 int main(int argc, char *argv[]) {
-    if(argc != 1) {
+    if (argc != 1) {
         std::cerr << "[ERROR] Usage: ./matmul" << std::endl;
         exit(EXIT_FAILURE);
     }
 
     std::ifstream input("data.bin", std::ios::binary);
 
-    if(input.is_open()) {
-        input.read(reinterpret_cast<char*>(&A), sizeof(float)*N*N);
-        input.read(reinterpret_cast<char*>(&B), sizeof(float)*N*N);
-        input.read(reinterpret_cast<char*>(&C), sizeof(float)*N*N);
+    if (input.is_open()) {
+        input.read(reinterpret_cast<char *>(&A), sizeof(float) * N * N);
+        input.read(reinterpret_cast<char *>(&B), sizeof(float) * N * N);
+        input.read(reinterpret_cast<char *>(&C), sizeof(float) * N * N);
     } else {
         std::cerr << "[ERROR] Unable to locate data.bin, please use data.py to generate data file!" << std::endl;
         exit(EXIT_FAILURE);
     }
     input.close();
-    
 
     print_matrix(A);
     print_matrix(B);
