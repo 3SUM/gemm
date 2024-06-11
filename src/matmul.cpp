@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <print>
 
 #include "Timer.h"
 
@@ -33,74 +34,53 @@ void loop_interchange_matmul() {
     }
 }
 
-void print_matrix(float m[]) {
-    std::cout << std::fixed << std::showpoint << std::setprecision(4);
-
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            std::cout << m[i * N + j] << " ";
-            if (N > 8 && j == 2) {
-                j = N - 4;
-                std::cout << "\t...\t";
-            }
-        }
-        std::cout << std::endl;
-        if (N > 8 && i == 2) {
-            i = N - 4;
-            std::cout << "\t\t\t\t...\n";
-        }
-    }
-
-    std::cout << std::endl
-              << std::endl;
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 1) {
-        std::cerr << "[USAGE]: ./matmul" << std::endl;
+        std::print("[USAGE]: ./matmul\n");
         exit(EXIT_FAILURE);
     }
 
     std::ifstream input("data.bin", std::ios::binary);
 
-    if (input.is_open()) {
+    if (input) {
         input.read(reinterpret_cast<char *>(&A), sizeof(float) * N * N);
         input.read(reinterpret_cast<char *>(&B), sizeof(float) * N * N);
         input.read(reinterpret_cast<char *>(&C), sizeof(float) * N * N);
+        input.close();
     } else {
-        std::cerr << "[ERROR] Unable to locate data.bin, please use matmul.py to generate data file!" << std::endl;
+        std::print("[ERROR] Unable to locate data.bin, please use matmul.py to generate data file!\n");
         exit(EXIT_FAILURE);
     }
-    input.close();
 
     int opt = 0;
-    std::cout << "Select Matrix Multiplication Method\n-----------------------------------\n";
-    std::cout << "[1] Basic matmul\n";
-    std::cout << "[2] Loop interchange matmul\n";
-    std::cout << "Enter option [digit]: ";
+    std::print("Select Matrix Multiplication Method\n{:=>35}\n", '=');
+    std::print("[1] Basic matmul\n");
+    std::print("[2] Loop interchange matmul\n > ");
     std::cin >> opt;
-    std::cout << std::endl;
 
     Timer t;
     switch (opt) {
         case 1: {
             t.start();
             basic_matmul();
-            t.end();
-            std::cout << "basic_matmul(): " << GFLOP / (t.duration() * 1.0e3) << " GFLOPS ( " << t.duration() << " [ms] )" << std::endl;
+            t.stop();
             break;
         }
         case 2: {
             t.start();
             loop_interchange_matmul();
-            t.end();
-            std::cout << "loop_interchange_matmul(): " << GFLOP / (t.duration() * 1.0e3) << " GFLOPS ( " << t.duration() << " [ms] )" << std::endl;
+            t.stop();
             break;
         }
         default:
-            std::cerr << "[ERROR] Invalid method selected!" << std::endl;
+            std::print("[ERROR] Invalid method selected!");
             exit(EXIT_FAILURE);
     }
+
+    std::print("\nResults\n{:=>35}\n", '=');
+    std::print("\tN         = {:10}\n", N);
+    std::print("\tGFLOPS    = {:10.4f}\n", GFLOP / (t.duration() * 1.0e3));
+    std::print("\tTime (ms) = {:10}\n", t.duration());
 
     exit(EXIT_SUCCESS);
 }

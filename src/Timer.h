@@ -17,7 +17,7 @@ class Timer {
         status = true;
     }
 
-    void end() {
+    void stop() {
         if (!status) {
             throw std::runtime_error("Timer has not been started!");
         }

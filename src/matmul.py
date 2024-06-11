@@ -2,8 +2,8 @@ import numpy as np
 
 N = 1024
 
-A = np.random.rand(N, N).astype(np.float32)
-B = np.random.rand(N, N).astype(np.float32)
+A = np.random.randn(N, N).astype(np.float32)
+B = np.random.randn(N, N).astype(np.float32)
 C = np.dot(A, B)
 
 with open("data.bin", "wb") as f:
