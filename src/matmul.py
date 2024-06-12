@@ -1,6 +1,6 @@
 import numpy as np
 
-N = 1024
+N = 2048
 
 A = np.random.randn(N, N).astype(np.float32)
 B = np.random.randn(N, N).astype(np.float32)

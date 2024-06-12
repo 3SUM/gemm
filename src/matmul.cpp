@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <cmath>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -5,7 +7,8 @@
 
 #include "Timer.h"
 
-#define N 1024
+#define N 2048
+#define TILE_SIZE 10
 
 constexpr double GFLOP = (2.0 * N * N * N) * 1.0e-3;
 
@@ -14,7 +17,7 @@ float B[N * N];
 float C[N * N];
 float vals[N * N];
 
-void basic_matmul() {
+void matmul_naive() {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             for (int k = 0; k < N; k++) {
@@ -24,7 +27,7 @@ void basic_matmul() {
     }
 }
 
-void loop_interchange_matmul() {
+void matmul_looporder() {
     for (int i = 0; i < N; i++) {
         for (int k = 0; k < N; k++) {
             for (int j = 0; j < N; j++) {
@@ -34,9 +37,34 @@ void loop_interchange_matmul() {
     }
 }
 
+void matmul_tiling() {
+    for (int inner_tile = 0; inner_tile < N; inner_tile += TILE_SIZE) {
+        for (int i = 0; i < N; i++) {
+            int inner_tile_end = std::min(N, inner_tile + TILE_SIZE);
+            for (int k = inner_tile; k < inner_tile_end; k++) {
+                for (int j = 0; j < N; j++) {
+                    vals[i * N + j] += A[i * N + k] * B[k * N + j];
+                }
+            }
+        }
+    }
+}
+
+void check_results() {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (fabsf(C[i * N + j] - vals[i * N + j]) > 1.0e-3) {
+                std::print("\n[ERROR] Mismatch at ({0}, {1}) C[{2}] != vals[{3}]\n", i, j, C[i * N + j], vals[i * N + j]);
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+    std::print("\n[SUCCESS] All done!\n");
+}
+
 int main(int argc, char *argv[]) {
     if (argc != 1) {
-        std::print("[USAGE]: ./matmul\n");
+        std::print("Usage:\n\tmatmul\n");
         exit(EXIT_FAILURE);
     }
 
@@ -54,21 +82,28 @@ int main(int argc, char *argv[]) {
 
     int opt = 0;
     std::print("Select Matrix Multiplication Method\n{:=>35}\n", '=');
-    std::print("[1] Basic matmul\n");
-    std::print("[2] Loop interchange matmul\n > ");
+    std::print("[1] Naive matmul\n");
+    std::print("[2] Loop order matmul\n");
+    std::print("[3] Tiling matmul\n > ");
     std::cin >> opt;
 
     Timer t;
     switch (opt) {
         case 1: {
             t.start();
-            basic_matmul();
+            matmul_naive();
             t.stop();
             break;
         }
         case 2: {
             t.start();
-            loop_interchange_matmul();
+            matmul_looporder();
+            t.stop();
+            break;
+        }
+        case 3: {
+            t.start();
+            matmul_tiling();
             t.stop();
             break;
         }
@@ -79,8 +114,10 @@ int main(int argc, char *argv[]) {
 
     std::print("\nResults\n{:=>35}\n", '=');
     std::print("\tN         = {:10}\n", N);
-    std::print("\tGFLOPS    = {:10.4f}\n", GFLOP / (t.duration() * 1.0e3));
+    std::print("\tGFLOPS    = {:10.5f}\n", GFLOP / (t.duration() * 1.0e3));
     std::print("\tTime (ms) = {:10}\n", t.duration());
+
+    check_results();
 
     exit(EXIT_SUCCESS);
 }
