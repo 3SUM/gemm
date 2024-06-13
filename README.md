@@ -12,6 +12,20 @@ Various matrix multiplcation methods implemented in C++.
 
 If you have questions or concerns please feel free to contact me here or on **Discord @im.upset**.
 
+## Matrix Multiplication Methods
+
+#### Naive
+
+Basic nested-for loop approach.
+
+#### Loop interchange (Cache Aware)
+
+Changing the order of the nested-for loops to provide more efficient memory access by preventing cache misses.
+
+#### Tiling (Cache Blocking)
+
+Tiling is a technique used to optimize matrix multiplication by breaking down matrices into smaller, equal-sized subsets called tiles. These tiles are then stored in cache memory, which is faster than RAM.
+
 ## Build & Run
 
 ```
@@ -22,7 +36,7 @@ make
 ./matmul
 ```
 
-**Note** [matmul.py](src/matmul.py) is used to generate a data file to populate matrices accordingly for testing.
+**Note**: [matmul.py](src/matmul.py) is used to generate a data file to populate matrices accordingly for testing.
 
 ## License
 
