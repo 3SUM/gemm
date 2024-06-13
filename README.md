@@ -8,15 +8,21 @@
 
 # matmul
 
-Matrix multiplication for fun in C++
+Various matrix multiplcation methods implemented in C++.
 
 If you have questions or concerns please feel free to contact me here or on **Discord @im.upset**.
 
-## Usage
+## Build & Run
 
 ```
-TBA
+git clone https://github.com/3SUM/matmul.git
+cd matmul/src
+python3 matmul.py
+make
+./matmul
 ```
+
+**Note** [matmul.py](src/matmul.py) is used to generate a data file to populate matrices accordingly for testing.
 
 ## License
 
