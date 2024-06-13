@@ -14,15 +14,15 @@ If you have questions or concerns please feel free to contact me here or on **Di
 
 ## Matrix Multiplication Methods
 
-#### Naive
+### Naive
 
 Basic nested-for loop approach.
 
-#### Loop interchange (Cache Aware)
+### Loop interchange (Cache Aware)
 
 Changing the order of the nested-for loops to provide more efficient memory access by preventing cache misses.
 
-#### Tiling (Cache Blocking)
+### Tiling (Cache Blocking)
 
 Tiling is a technique used to optimize matrix multiplication by breaking down matrices into smaller, equal-sized subsets called tiles. These tiles are then stored in cache memory, which is faster than RAM.
 
