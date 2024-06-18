@@ -1,3 +1,5 @@
+#include <arm_neon.h>
+
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -50,6 +52,11 @@ void matmul_tiling() {
     }
 }
 
+void matmul_neon() {
+    float32x4_t v = vld1q_f32(A);
+    std::print("{}\n", vgetq_lane_f32(v, 0));
+}
+
 void check_results() {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -84,7 +91,8 @@ int main(int argc, char *argv[]) {
     std::print("Select Matrix Multiplication Method\n{:=>35}\n", '=');
     std::print("[1] Naive matmul\n");
     std::print("[2] Loop order matmul\n");
-    std::print("[3] Tiling matmul\n > ");
+    std::print("[3] Tiling matmul\n");
+    std::print("[4] Neon matmul\n > ");
     std::cin >> opt;
 
     Timer t;
@@ -104,6 +112,12 @@ int main(int argc, char *argv[]) {
         case 3: {
             t.start();
             matmul_tiling();
+            t.stop();
+            break;
+        }
+        case 4: {
+            t.start();
+            matmul_neon();
             t.stop();
             break;
         }

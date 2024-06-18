@@ -6,14 +6,14 @@
 class Timer {
    private:
     bool status;
-    double _duration;
-    std::chrono::system_clock::time_point t1;
+    std::chrono::high_resolution_clock::time_point t1;
+    std::chrono::high_resolution_clock::time_point t2;
 
    public:
-    Timer() : status(false), _duration(0) {}
+    Timer() : status(false) {}
 
     void start() {
-        t1 = std::chrono::system_clock::now();
+        t1 = std::chrono::high_resolution_clock::now();
         status = true;
     }
 
@@ -21,12 +21,11 @@ class Timer {
         if (!status) {
             throw std::runtime_error("Timer has not been started!");
         }
-        auto t2 = std::chrono::system_clock::now();
+        t2 = std::chrono::high_resolution_clock::now();
         status = false;
-        _duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
     }
 
-    double duration() const {
-        return _duration;
+    auto duration() const {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
     }
 };
