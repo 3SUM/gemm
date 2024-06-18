@@ -11,7 +11,7 @@
 #include "Timer.h"
 
 // Constants
-#define TILE_SIZE 32
+#define TILE_SIZE 4
 
 void gemm_naive(float *A, float *B, float *vals, int M, int N, int K) {
     for (int i = 0; i < M; i++) {
