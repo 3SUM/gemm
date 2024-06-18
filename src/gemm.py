@@ -1,8 +1,8 @@
 import numpy as np
 
-M = 1024
-N = 512
-K = 2048
+M = 16
+N = 32
+K = 64
 
 A = np.random.randn(M, K).astype(np.float32)
 B = np.random.randn(K, N).astype(np.float32)
