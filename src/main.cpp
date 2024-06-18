@@ -1,8 +1,8 @@
-#include <cmath>
+#include <cstdint>
 #include <fstream>
-#include <iomanip>
 #include <iostream>
 #include <print>
+#include <sstream>
 #include <string>
 
 #include "GEMM.h"
@@ -18,6 +18,12 @@ int get_arg_value(char *arg) {
         std::print("[ERROR] Trailing characters after number: {}", arg);
         exit(EXIT_FAILURE);
     }
+
+    if (n <= 0) {
+        std::print("[ERROR] Invalid value: {}", arg);
+        exit(EXIT_FAILURE);
+    }
+
     return n;
 }
 

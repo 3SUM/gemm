@@ -3,6 +3,8 @@
 #include <arm_neon.h>
 
 #include <algorithm>
+#include <cmath>
+#include <cstdint>
 #include <print>
 
 class GEMM {
