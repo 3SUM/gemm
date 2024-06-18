@@ -14,6 +14,8 @@ If you have questions or concerns please feel free to contact me here or on **Di
 
 ## GEMM Methods
 
+Implementations of GEMM methods are located in [GEMM.h](src/GEMM.h)
+
 ### Naive
 
 Basic nested-for loop approach.
@@ -38,7 +40,7 @@ make
 
 **Notes**:
 
--   [gemm.py](src/gemm.py) is used to generate a data file to populate matrices accordingly for [gemm.cpp](src/gemm.cpp).
+-   [gemm.py](src/gemm.py) is used to generate a data file to populate matrices accordingly for [main](src/main.cpp) testing.
 -   **Matrix dimensions must match for both programs**
 
 ## Example Usage & Output
