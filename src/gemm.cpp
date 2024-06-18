@@ -77,11 +77,15 @@ int get_value(char *arg) {
 
 int main(int argc, char *argv[]) {
     if (argc != 7) {
-        std::print("Usage:\n\t./gemm -M <A ROWS> -N <B COLS> -K <A COLS/B ROWS>\n");
+        std::print("Usage:\n\tgemm -m <M> -n <N> -k <K>\n\n");
+        std::print("Options:\n");
+        std::print("  -m M        Number of rows for matrix A\n");
+        std::print("  -n N        Number of columns for matrix B\n");
+        std::print("  -k K        Number of columns/rows for matrices A & B\n");
         exit(EXIT_FAILURE);
     }
 
-    if (std::string(argv[1]) != "-M" || std::string(argv[3]) != "-N" || std::string(argv[5]) != "-K") {
+    if (std::string(argv[1]) != "-m" || std::string(argv[3]) != "-n" || std::string(argv[5]) != "-k") {
         std::print("[ERROR] Invalid flags\n");
         exit(EXIT_FAILURE);
     }
