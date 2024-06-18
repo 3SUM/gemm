@@ -1,4 +1,4 @@
 all:
-	g++ -std=c++2b -O3 -Wall -pedantic  matmul.cpp -o matmul
+	g++ -std=c++2b -O3 -Wall -pedantic  gemm.cpp -o gemm
 clean:
-	rm matmul
+	rm gemm
