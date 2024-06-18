@@ -14,7 +14,7 @@ If you have questions or concerns please feel free to contact me here or on **Di
 
 ## GEMM Methods
 
-Implementations of GEMM methods are located in [GEMM.h](src/GEMM.h)
+Implementations of GEMM methods are located in [GEMM.h](src/GEMM.h).
 
 ### Naive
 
@@ -29,21 +29,6 @@ Changing the order of the nested-for loops to provide more efficient memory acce
 Tiling is a technique used to optimize matrix multiplication by breaking down matrices into smaller, equal-sized subsets called tiles. These tiles are then stored in cache memory, which is faster than RAM.
 
 ## Build & Run
-
-```
-git clone https://github.com/3SUM/gemm.git
-cd gemm/src
-python3 gemm.py -m <A_ROWS> -n <B_COLS> -k <A_COLS/B_ROWS>
-make
-./gemm -m <A_ROWS> -n <B_COLS> -k <A_COLS/B_ROWS>
-```
-
-**Notes**:
-
--   [gemm.py](src/gemm.py) is used to generate a data file to populate matrices accordingly for [main](src/main.cpp) testing.
--   **Matrix dimensions must match for both programs**
-
-## Example Usage & Output
 
 ```
 python3 gemm.py -m 1024 -n 1024 -k 1024
@@ -72,6 +57,12 @@ Results
 
 [SUCCESS] All done!
 ```
+
+**Notes**:
+
+-   **C++ std used is C++23**.
+-   [gemm.py](src/gemm.py) is used to generate a data file to populate matrices accordingly for [main](src/main.cpp) testing.
+-   **Matrix dimensions must match for both programs**.
 
 ## License
 
