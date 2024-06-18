@@ -16,7 +16,7 @@
 
 // Constants
 #define TILE_SIZE 32
-constexpr double GFLOP = (2.0 * M * K * N) * 1.0e-3;
+constexpr double GFLOP = (2.0 * M * N * K) * 1.0e-3;
 
 // Matrices
 float A[M * K];
