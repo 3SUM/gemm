@@ -1,31 +1,12 @@
-#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <print>
-#include <sstream>
 #include <string>
 
 #include "GEMM.h"
+#include "NeonGEMM.h"
 #include "Timer.h"
-
-int get_arg_value(char *arg) {
-    int n = 0;
-    std::istringstream ss(arg);
-    if (!(ss >> n)) {
-        std::print("[ERROR] Invalid value: {}", arg);
-        exit(EXIT_FAILURE);
-    } else if (!ss.eof()) {
-        std::print("[ERROR] Trailing characters after number: {}", arg);
-        exit(EXIT_FAILURE);
-    }
-
-    if (n <= 0) {
-        std::print("[ERROR] Invalid value: {}", arg);
-        exit(EXIT_FAILURE);
-    }
-
-    return n;
-}
+#include "Utils.h"
 
 int main(int argc, char *argv[]) {
     if (argc != 7) {
@@ -78,30 +59,29 @@ int main(int argc, char *argv[]) {
     std::print("[4] Neon GEMM\n > ");
     std::cin >> opt;
 
-    GEMM g;
     Timer t;
     switch (opt) {
         case 1: {
             t.start();
-            g.naive(A, B, vals, M, N, K);
+            naive(A, B, vals, M, N, K);
             t.stop();
             break;
         }
         case 2: {
             t.start();
-            g.looporder(A, B, vals, M, N, K);
+            looporder(A, B, vals, M, N, K);
             t.stop();
             break;
         }
         case 3: {
             t.start();
-            g.tiling(A, B, vals, M, N, K);
+            tiling(A, B, vals, M, N, K);
             t.stop();
             break;
         }
         case 4: {
             t.start();
-            g.neon();
+            neon(A, B, vals, M, N, K);
             t.stop();
             break;
         }
@@ -119,7 +99,7 @@ int main(int argc, char *argv[]) {
     std::print("\tGFLOPS    = {:10.5f}\n", GFLOP / (t.duration() * 1.0e3));
     std::print("\tTime (ms) = {:10}\n", t.duration());
 
-    g.is_equal(C, vals, M, N);
+    is_equal(C, vals, M, N);
 
     delete[] A;
     delete[] B;
