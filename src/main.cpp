@@ -4,7 +4,9 @@
 #include <string>
 
 #include "GEMM.h"
+#if defined(__ARM_NEON__)
 #include "NeonGEMM.h"
+#endif
 #include "Timer.h"
 #include "Utils.h"
 
@@ -81,12 +83,16 @@ int main(int argc, char *argv[]) {
         }
         case 4: {
             t.start();
+#if defined(__ARM_NEON__)
             neon(A, B, vals, M, N, K);
+#else
+            std::print("[ERROR] ARM Neon not supported on this device!\n");
+#endif
             t.stop();
             break;
         }
         default:
-            std::print("[ERROR] Invalid method selected!");
+            std::print("[ERROR] Invalid method selected!\n");
     }
 
     std::print("\nResults\n{:=>35}\n", '=');

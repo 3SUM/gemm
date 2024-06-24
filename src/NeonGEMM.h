@@ -1,4 +1,6 @@
 #pragma once
+
+#if defined(__ARM_NEON__)
 #include <arm_neon.h>
 
 #include <print>
@@ -48,3 +50,4 @@ inline void neon(float *A, float *B, float *C, int M, int N, int K) {
 
     vst1q_f32(C, C0);
 }
+#endif
