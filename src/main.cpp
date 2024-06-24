@@ -86,7 +86,7 @@ int main(int argc, char *argv[]) {
 #if defined(__ARM_NEON__)
             neon(A, B, vals, M, N, K);
 #else
-            std::print("[ERROR] ARM Neon not supported on this device!\n");
+            std::print("[ERROR] ARM Neon not supported on this architecture!\n");
 #endif
             t.stop();
             break;
