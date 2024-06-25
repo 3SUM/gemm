@@ -1,7 +1,7 @@
 <br>
 
 <p align="center">
-<a href="https://github.com/3SUM"><img width="200" src="./logo/gemm.png" alt="gemm logo"></a>
+<a href="https://github.com/3SUM"><img width="200" src="logo/gemm.png" alt="gemm logo"></a>
 </p>
 
 <br>
@@ -10,7 +10,7 @@
 
 Various general matrix multiplcation (**GEMM**) methods implemented in C++.
 
-If you have questions or concerns please feel free to contact me here or on **Discord @im.upset**.
+If you have questions or concerns please feel free to contact me here or on **Discord @v0.3**
 
 ## GEMM Methods
 
