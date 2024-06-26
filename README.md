@@ -34,13 +34,21 @@ Tiling is a technique used to optimize matrix multiplication by breaking down ma
 python3 gemm.py -m 1024 -n 1024 -k 1024
 make
 ./gemm -m 1024 -n 1024 -k 1024
-
+```
+or
+```
+make AVX_ON=1
+./gemm -m 1024 -n 1024 -k 1024
+```
+if you want to enable Advanced Vector Extensions (AVX)
+```
 Select Matrix Multiplication Method
 ===================================
 [1] Naive GEMM
 [2] Loop order GEMM
 [3] Tiling GEMM
 [4] Neon GEMM
+[5] AVX (SIMD) GEMM
  > 2
 
 Results

@@ -25,9 +25,9 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    int M = get_arg_value(argv[2]);
-    int N = get_arg_value(argv[4]);
-    int K = get_arg_value(argv[6]);
+    int M = get_arg_value(argv[2]); // rows of matrix A
+    int N = get_arg_value(argv[4]); // columns of matrix B
+    int K = get_arg_value(argv[6]); // number of columns/rows A&B
 
     float *A = nullptr;
     float *B = nullptr;
@@ -58,7 +58,8 @@ int main(int argc, char *argv[]) {
     std::print("[1] Naive GEMM\n");
     std::print("[2] Loop order GEMM\n");
     std::print("[3] Tiling GEMM\n");
-    std::print("[4] Neon GEMM\n > ");
+    std::print("[4] Neon GEMM\n");
+    std::print("[5] AVX (SIMP) GEMM\n>");
     std::cin >> opt;
 
     Timer t;
@@ -91,6 +92,15 @@ int main(int argc, char *argv[]) {
             t.stop();
             break;
         }
+        case 5:
+            t.start();
+#if defined(__x86_64__)
+            AVX(A, B, vals, M, N, K);
+#else
+            std::print("[ERROR] x86 AVX not supported on this architecture!\n");
+#endif
+            t.stop();
+            break;
         default:
             std::print("[ERROR] Invalid method selected!\n");
     }
