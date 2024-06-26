@@ -60,7 +60,7 @@ Results
 
 **Notes**:
 
--   **C++ std used is C++23**.
+-   **C++ std used is C++23, compiler version gcc/g++-14**.
 -   [gemm.py](src/gemm.py) is used to generate a data file to populate matrices accordingly for [main](src/main.cpp) testing.
 -   **Matrix dimensions must match for both programs**.
 
