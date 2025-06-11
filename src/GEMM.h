@@ -3,11 +3,11 @@
 #include <algorithm>
 
 #if defined(__x86_64__)
-#include <immintrin.h> // AVX only available in x86 am i right?
+#include <immintrin.h>
 #endif
 
 #define TILE_SIZE 4
-#define BLOCK_SIZE 8 // 256 bits / 32 bits per float = 8 floats
+#define BLOCK_SIZE 8  // 256 bits / 32 bits per float = 8 floats
 
 inline void naive(const float *A, const float *B, float *C, int M, int N, int K) {
     for (int i = 0; i < M; i++) {
@@ -51,7 +51,7 @@ inline void AVX(const float *A, const float *B, float *C, int M, int N, int K) {
 
     for (int i = 0; i < M; i++) {
         for (int k = 0; k < K; k++) {
-            __m256 a0 = _mm256_set1_ps(A[i * K + k]); // Broadcast A[i, k] to all elements of a0
+            __m256 a0 = _mm256_set1_ps(A[i * K + k]);  // Broadcast A[i, k] to all elements of a0
             for (int j = 0; j < N; j += BLOCK_SIZE) {
                 // Load 8 elements from row k of B starting at column j
                 __m256 b0 = _mm256_loadu_ps(B + k * N + j);
@@ -67,7 +67,5 @@ inline void AVX(const float *A, const float *B, float *C, int M, int N, int K) {
             }
         }
     }
-}  
+}
 #endif
-
-
