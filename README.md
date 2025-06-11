@@ -35,7 +35,7 @@ python3 gemm.py -m 1024 -n 1024 -k 1024
 make
 ./gemm -m 1024 -n 1024 -k 1024
 ```
-
+```
 Select Matrix Multiplication Method
 ===================================
 [1] Naive GEMM
